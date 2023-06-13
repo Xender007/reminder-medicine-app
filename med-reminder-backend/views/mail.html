@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.email {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.email-body {
+    padding: 20px;
+}
+
+.email-header {
+    background: #cfcbff;
+    padding: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    color: red;
+}
+
+</style>
+<script>
+var name = "<%= token %>";
+console.log(name);
+</script>
+
+</head>
+<body>
+
+<div class="email col-md-12">
+    <div class="row">
+        <div class="email-header">
+            Email Verification
+        </div>
+    </div>
+    <div class="email-body">
+        <div class="row">
+            Hello user,
+            We just need to verify your email address before you can access Med-Reminder portal.
+        </div>
+        <div class="row">
+            Verify your email address 
+            <div class="verify-link">
+                <a href="http://localhost:4001/verify/${token}>">Veirfy Now</a>
+            </div>
+        </div>
+        <div class="row">
+            Thanks! – The Med-Reminder team
+        </div>
+    </div>
+</div>
+</body>
+</html>
