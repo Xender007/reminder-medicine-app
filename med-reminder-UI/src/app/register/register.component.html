@@ -1,0 +1,55 @@
+<div class="d-flex register-head align-items-center justify-content-center">
+    <form class="row register g-3" [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="col-md-12">
+            <label for="Name" class="form-label">Name</label>
+            <input type="text" class="form-control name" formControlName="name" placeholder="Enter your name">
+            <div class="error-warn" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+                <div *ngIf="name?.errors?.['required']">Name required.</div>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control email" formControlName="email" id="email" placeholder="abc@gmail.com">
+            <div class="error-warn" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+                <div *ngIf="email?.errors?.['required']">Email id required.</div>
+                <div *ngIf="email?.errors?.['pattern']">Please provide proper email id. <br> e.g example@example.com</div>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="inputPassword" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control pass" placeholder="Enter your password" id="inputPassword">
+            <div class="error-warn" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+                <div *ngIf="password?.errors?.['required']">Password required.</div>
+                <div *ngIf="password?.errors?.['minlength']">Password Length should be more than 8.</div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <label for="contactNumber" class="form-label">Contact Number</label>
+            <input type="tel" formControlName="phoneNumber" placeholder="(+91)-0000000000" (keypress)="($event.charCode >= 48 && $event.charCode < 58) ||$event.charCode == 43" class="form-control number" id="contactNumber" required>
+            <div class="error-warn" *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)">
+                <div *ngIf="phoneNumber?.errors?.['required']">Phone number required.</div>
+                <div *ngIf="phoneNumber?.errors?.['pattern']">Please provide proper phone number with country code. e.g (+91) </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" formControlName="cbxtnc" type="checkbox" id="gridCheck">
+                <label class="form-check-label" for="gridCheck">
+                I Agree To The <a class="tnc" routerLink="/login" >Terms & Conditions</a>
+                </label>
+            </div>
+            <div class="error-warn" *ngIf="cbxtnc?.invalid && (cbxtnc?.dirty || cbxtnc?.touched)">
+                <div *ngIf="cbxtnc?.errors?.['required']">Must accept Terms and Conditions.</div>
+                
+            </div>
+        </div>
+        <div class="col-12">
+        <button type="submit"  [disabled]="registrationForm.invalid" class="btn btn-primary">Register</button>
+        </div>
+        <div *ngIf="isEmailInUse" class="email-exits-warning error-warn">
+            {{emailInUseMsg}}
+        </div>
+    </form>
+</div>

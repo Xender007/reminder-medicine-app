@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  color-scheme: light dark;
+}
+
+.email {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.email-body {
+    padding: 20px;
+    background: linear-gradient(23deg, #d7d7d7, #c5bba00d);
+}
+
+.email-header {
+    background: #cfcbff;
+    padding: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    color: red;
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.verify-link.col-md-12 {
+    padding: 0;
+    margin: 10px 0 10px 0;
+}
+
+.link-text {
+    width: 20%;
+    display: block;
+    background: blue;
+    padding: 10px 0px 10px 0px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.warning-text {
+    color: red;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+
+    @media screen and (prefers-color-scheme: dark) {
+        color: rgb(29, 243, 29);
+    }
+
+}
+
+.team-text {
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.user-name {
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #500050 !important;
+}
+
+p {
+  color: #000;
+
+}
+@media only screen and (max-width: 766px) {
+    .link-text {
+        width: 50%;
+    }
+}
+
+
+
+</style>
+<meta name="color-scheme" content="dark light">
+</head>
+<body>
+
+<div class="email col-md-12">
+    <div class="row email-header">
+            Email Verification
+    </div>
+
+    <div class="email-body">
+        <div class="row user-name">
+            Hello userData.name,
+        </div>
+        <div class="row">
+            We just need to verify your email address before you can access Med-Reminder portal.
+        </div>
+        <div class="row">
+            Verify your email address 
+            <div class="verify-link col-md-12">
+                <a class="link-text" href="http://localhost:4001/verify/${token}">Veirfy Now</a>
+            </div>
+        </div>
+        <div class="row">
+            Thanks! 
+        </div>
+        <div class="row team-text">
+            The Med-Reminder team
+        </div>
+        <div class="row">
+            <div class="warning-text">***Please don't click this "Verify Now" link, if you are not requested this mail. Also please don't reply to this mail. Thanks!</div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
