@@ -1,0 +1,43 @@
+.login-head {
+    height: calc(100vh - 6vh);
+    background: #a9f3ff94;
+}
+
+.login {
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 20px 25px 20px 25px;
+    background: white;
+    
+}
+
+.email {
+    background: url("../../assets/icons/envelope-solid.svg") no-repeat left;
+    background-size: 15px;
+    background-position: top 50% left 8px;
+    padding-left: 8%;
+}
+
+.pass {
+    background: url("../../assets/icons/lock-solid.svg") no-repeat left;
+    background-size: 15px;
+    background-position: top 50% left 8px;
+    padding-left: 8%;
+}
+
+.error-warn {
+    color: red;
+}
+
+
+@media only screen and (max-width: 766px) {
+    .email, .pass {
+        padding-left: 10% !important;
+    }
+    .login {
+        width: 100%;
+        padding: 8px;
+    }
+
+}

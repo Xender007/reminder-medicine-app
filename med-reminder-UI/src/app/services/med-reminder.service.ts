@@ -4,13 +4,14 @@ import { User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { Medicine } from '../models/medicine.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterUtilService {
+export class MedReminderService {
 
-
+  
   constructor(private http: HttpClient) { }
 
   public addUser(user: User): Observable<any> {
@@ -18,7 +19,24 @@ export class RegisterUtilService {
   }
 
   public login(user: User): Observable<any> {
-    return this.http.post(environment.baseUrl + '/login', user, {responseType: 'text'}).pipe(retry(1), catchError(this.handleError));
+    return this.http.post(environment.baseUrl + '/login', user, {responseType: 'json'}).pipe(retry(1), catchError(this.handleError));
+  }
+
+  public logout(): Observable<any> {
+    return this.http.get(environment.baseUrl + '/logout', {responseType: 'text'}).pipe(retry(1), catchError(this.handleError));
+  }
+
+  public addMedicine(med : Medicine): Observable<any> {
+    return this.http.post(environment.baseUrl + '/addMedicine', med, {responseType: 'text'}).pipe(retry(1), catchError(this.handleError));
+  }
+
+
+
+  public getMedicine(med : Medicine): Observable<any> {
+    let headers: any = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('userId', med.userId);
+    return this.http.get(environment.baseUrl + '/getmedicine', {headers: headers}).pipe(retry(1), catchError(this.handleError));
   }
 
 
@@ -40,4 +58,3 @@ export class RegisterUtilService {
   }
 
 }
-

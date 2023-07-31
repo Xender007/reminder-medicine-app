@@ -1,8 +1,10 @@
 const Users = require('./models/Users');
+const Medicine = require('./models/medicine-model')
 const logger = require('./services/logger');
 
 module.exports = {
-    async validateEmailAccessibility(email){
+    async validateEmailAccessibility(email)
+    {
         var isEmailExits = false;
         await Users.findOne({email: email}).then(function(result){
             if(result != null)
@@ -12,6 +14,19 @@ module.exports = {
         });
 
         return isEmailExits;
+    },
+
+    async validateMedicineName(medicine)
+    {
+        var isMedExist = false;
+        await Medicine.findOne({medicineName: medicine}).then(function(result){
+            if(result != null)
+            {
+                isMedExist = true;
+            }
+        });
+
+        return isMedExist;
     },
 
     async findUser(email)

@@ -4,6 +4,7 @@ import * as bcrypt from 'bcryptjs';
 import { User } from '../models/user.model';
 import { RegisterUtilService } from '../services/register-util.service';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MedReminderService } from '../services/med-reminder.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent {
   emailInUseMsg : string = '';
 
   constructor(
-    private registerService : RegisterUtilService,
+    private medReminderService : MedReminderService,
     public dialog: MatDialog
   ) {
   
@@ -49,10 +50,8 @@ export class RegisterComponent {
     return this.registrationForm.get('cbxtnc');
   }
 
-
-
   openDialog() {
-    this.dialog.open(DialogElementsExampleDialog);
+    this.dialog.open(DialogSuccessful);
   }
 
   onSubmit() {
@@ -75,10 +74,11 @@ export class RegisterComponent {
     userInfo.password = pass;
     userInfo.contactNumber = this.registrationForm.value.phoneNumber!;
 
-    this.registerService.addUser(userInfo).subscribe({
+    this.medReminderService.addUser(userInfo).subscribe({
       next: (data) => { 
           if(data)
           {
+            this.openDialog();
             this.registrationForm.reset();
           }
           //console.log("-------------->>>Data value",data);
@@ -93,7 +93,7 @@ export class RegisterComponent {
       },
   })
 
-    // this.registerService.addUser(userInfo).subscribe((data)=>{
+    // this.medReminderService.addUser(userInfo).subscribe((data)=>{
     //   console.log(data);
 
     // },
@@ -113,3 +113,11 @@ export class RegisterComponent {
 
   }
 }
+
+@Component({
+  selector: 'dialog-success',
+  templateUrl: 'dialog-success.html',
+  standalone: true,
+  imports: [MatDialogModule],
+})
+export class DialogSuccessful {}

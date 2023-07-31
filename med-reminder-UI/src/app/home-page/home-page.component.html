@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-sm-3"  *ngFor="let med of medicine; let i = index">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{med.name}}</h5>
+          <p class="card-text">{{med.power}}</p>
+          <a href="#" class="btn btn-primary">{{med.reminderEnabled}}</a>
+        </div>
+      </div>
+    </div>
+</div>
+

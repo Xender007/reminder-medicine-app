@@ -1,0 +1,51 @@
+.header-medicine.row {
+    margin-top: 2em;
+}
+
+.search {
+    width: 40%;
+    margin-left: 3em;
+}
+
+.add-btn {
+    text-align: right;
+}
+
+button#add-medicine {
+    background: green;
+}
+
+/*---------------------Table-------------------*/
+
+.medicine-data-table {
+    position: relative;
+    min-height: 200px;
+    max-height: 62vh;
+    overflow: auto;
+}
+
+.footer {
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+  }
+
+
+/*----------- Popup CSS ------------*/
+.mat-mdc-form-field {
+    width: 100%;
+}
+
+.med-type-img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+[dir='rtl'] .med-type-img {
+    margin-right: 0;
+    margin-left: 8px;
+  }

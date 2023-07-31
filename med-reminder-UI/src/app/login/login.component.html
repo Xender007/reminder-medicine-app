@@ -1,124 +1,63 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-:root {
-  color-scheme: light dark;
-}
+<div class="d-flex login-head align-items-center justify-content-center">
+    <form class="row login g-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
 
-.email {
-    width: 80%;
-    margin: 0 auto;
-}
-
-.email-body {
-    padding: 20px;
-    background: linear-gradient(23deg, #d7d7d7, #c5bba00d);
-}
-
-.email-header {
-    background: #cfcbff;
-    padding: 20px;
-    font-size: 32px;
-    font-weight: bold;
-    color: red;
-}
-
-.row {
-    margin-right: 0;
-    margin-left: 0;
-}
-
-.verify-link.col-md-12 {
-    padding: 0;
-    margin: 10px 0 10px 0;
-}
-
-.link-text {
-    width: 20%;
-    display: block;
-    background: blue;
-    padding: 10px 0px 10px 0px;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 8px;
-}
-
-.warning-text {
-    color: red;
-    padding: 0;
-    font-size: 14px;
-    font-weight: 600;
-
-    @media screen and (prefers-color-scheme: dark) {
-        color: rgb(29, 243, 29);
-    }
-
-}
-
-.team-text {
-    font-size: 16px;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.user-name {
-    font-size: 16px;
-    margin-bottom: 20px;
-    font-weight: 600;
-    color: #500050 !important;
-}
-
-p {
-  color: #000;
-
-}
-@media only screen and (max-width: 766px) {
-    .link-text {
-        width: 50%;
-    }
-}
-
-
-
-</style>
-<meta name="color-scheme" content="dark light">
-</head>
-<body>
-
-<div class="email col-md-12">
-    <div class="row email-header">
-            Email Verification
-    </div>
-
-    <div class="email-body">
-        <div class="row user-name">
-            Hello userData.name,
+        <div class="col-12">
+            <!-- <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control email" formControlName="email" id="email" placeholder="abc@gmail.com">
+            <div class="error-warn" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+                <div *ngIf="email?.errors?.['required']">Email id required.</div>
+                <div *ngIf="email?.errors?.['pattern']">Please provide proper email id. <br> e.g example@example.com</div>
+            </div> -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="mail-icon"><i class="fa-solid fa-envelope"></i></span>
+                <input type="email" class="form-control" formControlName="email" id="email" placeholder="Please enter email" aria-label="Please enter email" aria-describedby="mail-icon">
+                <span class="input-group-text" id="basic-addon2">@example.com</span>
+            </div>
+            <div class="error-warn" *ngIf="email?.invalid && (email?.dirty && email?.touched)">
+                <div *ngIf="email?.errors?.['required']">Email id required.</div>
+                <div *ngIf="email?.errors?.['pattern']">Please provide proper email id.</div>
+            </div> 
         </div>
-        <div class="row">
-            We just need to verify your email address before you can access Med-Reminder portal.
+        <div class="col-12">
+            <!-- <label for="inputPassword" class="form-label">Password</label>
+            <input type="password" class="form-control pass" formControlName="password" placeholder="Enter your password" id="inputPassword"> -->
+            
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="lock-icon"><i class="fa-solid fa-lock"></i></span>
+                <input  [type]="showPass ? 'text' : 'password'" class="form-control" formControlName="password" id="inputPassword" placeholder="Please enter password" aria-label="password" aria-describedby="lock-icon">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="onShowHidePassClick()">
+                    <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="!showPass"></i>
+                    <i class="fa fa-eye" aria-hidden="true" *ngIf="showPass"></i>
+                </button>
+            </div>
+
+
+            <!-- <label for="inputPassword" class="form-label">Password</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="lock-icon"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Please enter password" aria-label="password" aria-describedby="lock-icon">
+            </div> -->
         </div>
+
         <div class="row">
-            Verify your email address 
-            <div class="verify-link col-md-12">
-                <a class="link-text" href="http://localhost:4001/verify/${token}">Veirfy Now</a>
+            <div class="col-md-6 forgot-pass">
+                <label class="forgot-pass-lbl">
+                    Forgot password
+                </label>
+            </div>
+            <div class="col-md-6 sign-up">
+                <label class="sign-up-lbl">
+                    Sign up
+                </label>
             </div>
         </div>
-        <div class="row">
-            Thanks! 
-        </div>
-        <div class="row team-text">
-            The Med-Reminder team
-        </div>
-        <div class="row">
-            <div class="warning-text">***Please don't click this "Verify Now" link, if you are not requested this mail. Also please don't reply to this mail. Thanks!</div>
-        </div>
-    </div>
 
 
+        <div class="col-12">
+            <button type="submit"  [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+        </div>
+        <div *ngIf="isInvalidCredentials" class="email-exits-warning error-warn">
+            {{inValidCredentials}}
+        </div>
+    </form>
 </div>
-</body>
-</html>

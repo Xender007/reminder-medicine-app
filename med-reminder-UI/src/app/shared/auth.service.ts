@@ -5,11 +5,15 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
   providedIn: 'root'
 })
 export class AuthService {
-  isAuthenticate: any;
   constructor(private router: Router) {}
+
+  IsloggedIn() {
+    return !!localStorage.getItem('token');
+  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
       //your logic goes here
       return true;
   }
 }
+
