@@ -30,6 +30,12 @@
     color: red;
 }
 
+::ng-deep {
+    .mat-dialog-content {
+        width: 80%;
+    }
+} 
+
 
 @media only screen and (max-width: 766px) {
     .email, .pass {

@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AddMedicineComponent, MedicinePopup } from './add-medicine/add-medicine.component';
+import { ReminderComponent, ReminderPopup } from './reminder/reminder.component';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -19,6 +20,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { NgConfirmModule } from 'ng-confirm-box';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatNativeDateTimeModule, MatTimepickerModule } from "@dhutaryan/ngx-mat-timepicker";
 
 
 @NgModule({
@@ -29,13 +36,16 @@ import { MatTableModule } from '@angular/material/table';
     NavbarComponent,
     HomePageComponent,
     AddMedicineComponent,
-    MedicinePopup
+    MedicinePopup,
+    ReminderComponent,
+    ReminderPopup
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    NgxMaterialTimepickerModule,
     BrowserAnimationsModule,
     MatDialogModule,
     FormsModule,
@@ -44,7 +54,15 @@ import { MatTableModule } from '@angular/material/table';
     MatSelectModule,
     MatIconModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    NgConfirmModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTimepickerModule,
+    MatNativeDateTimeModule,
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger', // set defaults here
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

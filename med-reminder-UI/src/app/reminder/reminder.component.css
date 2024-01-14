@@ -1,0 +1,4 @@
+/*---------------Reminder Popup--------------------*/
+::ng-deep .timepicker-overlay {
+    z-index: 9999 !important;    
+}

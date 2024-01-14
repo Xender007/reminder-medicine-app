@@ -83,6 +83,14 @@ var isLoggedIn = false;
     }
     app.use(cors(corsOptions));
 
+    function ignoreFavicon(req, res, next) {
+        if (req.originalUrl.includes('favicon.ico')) {
+          res.status(204).end()
+        }
+        next();
+    }
+    app.use(ignoreFavicon);
+
     //Mongoose connection 
     mongoose.Promise = global.Promise;
     mongoose.connect("mongodb://127.0.0.1:27017/medicine-reminder-app");
@@ -375,10 +383,10 @@ var isLoggedIn = false;
     //Logout api
     app.get('/api/logout',(req,res) => {
         try{
+            res.status(200).send("Logout Successfully.");
             req.session.destroy();
             logger.info("Logout successful.");
-            res.status(200).send("Logout Successfully.")
-            res.redirect('/');
+
         }
         catch (err) {
             res.status(401).send("Some error occured during logout.");
@@ -388,9 +396,11 @@ var isLoggedIn = false;
     });
 
     //Adding medicine 
-    app.post('/api/addmedicine',async (req,res) => {
+    app.post('/api/addMedicinenew',async (req,res) => {
 
         try{        
+
+            console.log('addmed-called');
             
             var medData = new Medicine();
             medData.medicineName = req.body.medicineName;
@@ -416,8 +426,8 @@ var isLoggedIn = false;
             }
             else
             {
-                res.status(409).send("Medicine already in available.");
-                logger.info("Medicine already in available.");
+                res.status(409).send("Medicine already available.");
+                logger.info("Medicine already available.");
             }
 
         }
@@ -428,16 +438,15 @@ var isLoggedIn = false;
     });
     
 
+    //Get medicine list
     app.get('/api/getmedicine', async (req,res) => {
 
         try {
-            var x = req.headers['userid'];
-            console.log(x);
+            var userId = req.headers['userid'];
 
-            await Medicine.find({userId: x}).then(function(result){
+            await Medicine.find({userId: userId}).then(function(result){
                 if(result != null)
                 {  
-                    console.log("result ---->",result);
                     res.status(200).json({
                         message: "Get Medicine successful.",
                         result: result
@@ -454,11 +463,91 @@ var isLoggedIn = false;
         }
         catch (error)
         {
-            console.log(error);
             res.status(400).send("Some error occured during getting medicine.");
             logger.error("Some error occured during getting medicine.");
         }
-    })
+    });
+
+    //Delete medicine
+    app.delete('/api/deletemedicine', async (req,res) => {
+
+        try {
+            await Medicine.deleteOne({ _id : req.headers['_id']}).then(function(result){
+                if(result != null)
+                {  
+                    console.log("result ---->",result);
+                    res.status(200).json({
+                        message: "Medicine Delete successful.",
+                        result: result
+                    })
+                    logger.info("Medicine Delete successful.");
+        
+                }
+                else
+                {
+                    res.status(401).send("Medicine delete unsuccessful.");
+                    logger.warn("Medicine delete unsuccessful.");
+                }
+            });
+        }
+        catch (error)
+        {
+            console.log(error);
+            res.status(400).send("Some error occured during deleting medicine.");
+            logger.error("Some error occured during deleting medicine.");
+        }
+    });
+
+    //Edit medicine
+    app.put('/api/updatemedicine', async (req,res) => {
+
+        try {
+            //validate email exists ?
+            //var isMedExist = await mongo.validateMedicineName(medData.medicineName);
+            //if(!isMedExist) 
+            {
+                await Medicine.updateOne({ _id : req.body._id}, 
+                    {$set: 
+                        {
+                            medicineName : req.body.medicineName,
+                            medicineType: req.body.medicineType,
+                            dose: req.body.dose,
+                            quantity: req.body.quantity,
+                        }    
+                    }
+                    ).then(function(result){
+                            if(result != null)
+                            {  
+                                console.log("result ---->",result);
+                                res.status(200).json({
+                                    message: "Medicine update successful.",
+                                    result: result
+                                })
+                                logger.info("Medicine update successful.");
+                    
+                            }
+                            else
+                            {
+                                res.status(401).send("Medicine update unsuccessful.");
+                                logger.warn("Medicine update unsuccessful.");
+                            }
+                    });
+            }
+            //else
+            {
+                res.status(409).send("Medicine already available.");
+                logger.info("Medicine already available.");
+            }
+
+        }
+        catch (error)
+        {
+                console.log(error);
+                res.status(400).send("Some error occured during updating medicine.");
+                logger.error("Some error occured during updating medicine.");
+        }
+    });
+
 
     //listen server (dev mode)
     http.createServer(app).listen(4001);

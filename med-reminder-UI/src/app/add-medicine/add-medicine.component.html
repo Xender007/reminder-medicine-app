@@ -1,5 +1,5 @@
 <div class="add-medicine-main">
-
+  <button class="btn btn-outline-secondary" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="right" (confirm)="confirmClicked = true" (cancel)="cancelClicked = true">Click me!</button> 
         <div class="header-medicine">
             <!-- <div class="input-group flex-nowrap search col-md-6 col-sm-4">
                 <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search">
@@ -9,7 +9,7 @@
             </div> -->
 
             <div class="add-btn col-md-6 col-sm-4">
-                <button class="btn add-med" type="button" id="add-medicine" (click)="addMedicine()">
+                <button class="btn add-med" type="button" id="add-medicine" (click)="addMedicinePopup()">
                     <i class="fa-solid fa-plus"></i>
                     Add Medicine
                 </button>
@@ -68,16 +68,16 @@
                  <!-- Action Column -->
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
-                <td mat-cell *matCellDef="let element" class="action-link"> 
-                <mat-icon>edit</mat-icon>
-                <mat-icon>delete</mat-icon>
+                <td mat-cell *matCellDef="let row" class="action-link"> 
+                <mat-icon (click)="onEditMedicine(row)">edit</mat-icon>
+                <mat-icon (click)="onDeleteMedicine(row._id)">delete</mat-icon>
                 <!-- <a (click)="openDialog()">Edit</a> | 
                 <a (click)="openDialog()">Delete</a>   -->
                 </td>
             </ng-container>
           
               <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           
               <!-- Row shown when there is no matching data. -->
               <tr class="mat-row" *matNoDataRow>

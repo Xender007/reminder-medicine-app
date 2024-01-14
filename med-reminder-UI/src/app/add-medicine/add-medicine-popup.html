@@ -1,4 +1,4 @@
-<form [formGroup]="addMedicineForm" (ngSubmit)="onAddMedSubmit()" novalidate>
+<form [formGroup]="addMedicineForm" (ngSubmit)="onAddMedSubmit()" *ngIf="!isEdit" novalidate>
     <div class="header-txt pt-3 px-3">
         <h4>Add Medicine</h4>
     </div>
@@ -19,52 +19,7 @@
             <mat-label>Medicine Name</mat-label>
             <input matInput formControlName="medName" required>
             <mat-error *ngIf="medName?.invalid">{{getMedNameErrorMessage()}}</mat-error>
-        </mat-form-field>
-    </div>
-    <div class="med-dose pt-3 px-3">
-        <mat-form-field appearance="outline">
-            <mat-label>Dose</mat-label>
-            <input matInput formControlName="dose" required>
-            <mat-error *ngIf="dose?.invalid">{{getDoseErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
-    <div class="med-qty py-3 px-3">
-        <mat-form-field appearance="outline">
-            <mat-label>Packsize/ Volume/ Qty.</mat-label>
-            <input matInput formControlName="qty" required>
-            <mat-error *ngIf="qty?.invalid">{{getQtyErrorMessage()}}</mat-error>
-        </mat-form-field>
-    </div>
-    <div class="med-add pb-3 px-3">
-        <button mat-dialog-close type="submit" [disabled]="addMedicineForm.invalid" class="btn btn-primary">
-            <img src="../../assets/image/med-rem-logo.png" height="40px">
-            <span>Add Medicine</span>
-        </button>
-        <mat-error *ngIf="invalidMedName">Medcine name already available.</mat-error>
-    </div>
-</form>
 
-<form [formGroup]="addMedicineForm" (ngSubmit)="onAddMedSubmit()" *ngIf="isEdit" novalidate>
-    <div class="header-txt pt-3 px-3">
-        <h4>Add Medicine</h4>
-    </div>
-    <div class="input-group pt-3 px-3">
-        <mat-form-field  appearance="outline">
-            <mat-label>Medicine Type</mat-label>
-            <mat-select formControlName="medType" required>
-              <mat-option *ngFor="let medType of medicineTypeList" [value]="medType.value">
-                <img alt="" class="med-type-img" [src]="medType.img" height="25">
-                <span>{{medType.text}}</span>
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="medType?.invalid">{{getMedTypeErrorMessage()}}</mat-error>
-        </mat-form-field>        
-    </div>
-    <div class="med-name pt-3 px-3">
-        <mat-form-field appearance="outline">
-            <mat-label>Medicine Name</mat-label>
-            <input matInput formControlName="medName" required>
-            <mat-error *ngIf="medName?.invalid">{{getMedNameErrorMessage()}}</mat-error>
         </mat-form-field>
     </div>
     <div class="med-dose pt-3 px-3">
@@ -85,6 +40,53 @@
         <button type="submit" [disabled]="addMedicineForm.invalid" class="btn btn-primary">
             <img src="../../assets/image/med-rem-logo.png" height="40px">
             <span>Add Medicine</span>
+        </button>
+    </div>
+</form>
+
+<!-----------------Edit Popup---------------->
+
+<form [formGroup]="addMedicineForm" (ngSubmit)="onEditMedicine()" *ngIf="isEdit" novalidate>
+    <div class="header-txt pt-3 px-3">
+        <h4>Add Medicine</h4>
+    </div>
+    <div class="input-group pt-3 px-3">
+        <mat-form-field  appearance="outline">
+            <mat-label>Medicine Type</mat-label>
+            <mat-select formControlName="medType" [(ngModel)]="selected" required>
+              <mat-option *ngFor="let medType of medicineTypeList" [value]="medType.value">
+                <img alt="" class="med-type-img" [src]="medType.img" height="25">
+                <span>{{medType.text}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="medType?.invalid">{{getMedTypeErrorMessage()}}</mat-error>
+        </mat-form-field>    
+    </div>
+    <div class="med-name pt-3 px-3">
+        <mat-form-field appearance="outline">
+            <mat-label>Medicine Name</mat-label>
+            <input matInput formControlName="medName" [(ngModel)]="medNameval" required>
+            <mat-error *ngIf="medName?.invalid">{{getMedNameErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="med-dose pt-3 px-3">
+        <mat-form-field appearance="outline">
+            <mat-label>Dose</mat-label>
+            <input matInput formControlName="dose" [(ngModel)]="medDoseval" required>
+            <mat-error *ngIf="dose?.invalid">{{getDoseErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+    <div class="med-qty py-3 px-3">
+        <mat-form-field appearance="outline">
+            <mat-label>Packsize/ Volume/ Qty.</mat-label>
+            <input matInput formControlName="qty" [(ngModel)]="medQtyval" required>
+            <mat-error *ngIf="qty?.invalid">{{getQtyErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="med-add pb-3 px-3">
+        <button type="submit" [disabled]="addMedicineForm.invalid" class="btn btn-primary">
+            <img src="../../assets/image/med-rem-logo.png" height="40px">
+            <span>Update Medicine</span>
         </button>
         <mat-error *ngIf="invalidMedName">Medcine name already available.</mat-error>
     </div>

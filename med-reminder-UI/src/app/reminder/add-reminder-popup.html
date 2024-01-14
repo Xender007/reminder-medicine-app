@@ -1,0 +1,29 @@
+<form [formGroup]="reminderPopup" (ngSubmit)="onAddReminder()" novalidate>
+    <div class="header-txt pt-3 px-3">
+        <h4>Add Reminder</h4>
+    </div>
+    <div class="input-group pt-3 px-3">
+        <mat-form-field>
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate placeholder="Start date">
+              <input matEndDate placeholder="End date">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+    </div>
+    <div class="med-name pt-3 px-3">
+        <input [ngxTimepicker]="$any(timepicker)">
+        <ngx-material-timepicker #timepicker></ngx-material-timepicker>
+    </div>
+
+    <div class="med-add pb-3 px-3">
+        <button type="submit" [disabled]="reminderPopup.invalid" class="btn btn-primary">
+            <img src="../../assets/image/med-rem-logo.png" height="40px">
+            <span>Add Medicine</span>
+        </button>
+    </div>
+</form>
+

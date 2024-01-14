@@ -4,4 +4,5 @@ export class Medicine {
     quantity! : string;
     medicineType! : string;
     userId!: string;
+    _id!: string;
 }

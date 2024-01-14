@@ -20,6 +20,7 @@ export class NavbarComponent {
       next: (data) => { 
           if(data)
           {
+            console.log("navbar---->>>>logout",data);
             localStorage.clear();
             this.router.navigateByUrl('login');
           }

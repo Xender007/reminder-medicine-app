@@ -64,7 +64,7 @@ export class LoginComponent {
           if(error.errorDetails.error)
           {
             this.inValidCredentials = error.errorDetails.error;
-            this.isInvalidCredentials = !this.isInvalidCredentials;
+            this.isInvalidCredentials = true;
           } 
           this.loginForm.reset();
           //console.log(error.errorDetails.error)
